@@ -1,38 +1,51 @@
 /**
  * @file main.cpp
- * @brief This is an implementation of the knapsack problem
- * @details This is an implementation of the knapsack problem, using a binary tree to store the data.
+ * @brief This is a test of CMake, doxygen, and GitHub.
+ * @details This is the long brief at the top of main.cpp.
  * @author Seth McNeill
  * @date 1/28/2021
  * 
  */
 
 #include <iostream>
+#include <vector>
+#include <chrono>
+#include <algorithm>
 #include <queue>
-#include <algorithm>    // std:: shuffle
-#include <array>        // std::array
-#include <random>       // std::default_random_engine
-#include <chrono>       // std::chrono::system_clock
+
 using namespace std;
 
-/**
- * Binary Tree Node
- * 
- * This is from Open Data Structures in C++ by Pat Morin
- */
+class Products {
+
+private:
+
+public:
+    double price;
+    double weight;
+    double ratio;
+
+    Products() {
+
+    }
+
+    Products(double p, double w) {
+        price = p;
+        weight = w;
+        ratio = w/p;
+    }
+};
+
 class BTNode {
 public:
   BTNode* left;
   BTNode* right;
   BTNode* parent;
-  int weight;
-  int price;
-  
 
+  
   /**
    * BTNode constructor
    */
-  BTNode(int dataVal) {
+  BTNode(Products dataVal) {
       //cout << "name = " << name << endl;
       left = NULL;
       right = NULL;
@@ -51,14 +64,14 @@ public:
     /**
      * This reports the node's data
      */
-    int nodeData() {
+    Products nodeData() {
         return(data);
     }
 
 private:
   char objName; // The object number created
   static char name;
-  int data; // Data that is stored in the node
+  Products data; // Data that is stored in the node
 };
 
 
@@ -80,9 +93,9 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
         // Find the node n belongs under, prev, n's new parent
         while(w != NULL) {
             prev = w;
-            if(n->nodeData() < w->nodeData()){
+            if(n->nodeData().ratio < w->nodeData().ratio){
                 w = w->left;
-            } else if(n->nodeData() > w->nodeData()) {
+            } else if(n->nodeData().ratio > w->nodeData().ratio) {
                 w = w->right;
             } else { // data already in the tree
                 return(NULL);
@@ -90,7 +103,7 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
         }
         // now prev should contain the node that should be n's parent
         // Add n to prev
-        if(n->nodeData() < prev->nodeData()) {
+        if(n->nodeData().ratio < prev->nodeData().ratio) {
             prev->left = n;
         } else {
             prev->right = n;
@@ -107,48 +120,31 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
  * @param dataval an integer for the new node's data
  * @returns pointer to root node or NULL if not successful
  */
-BTNode* addNode(BTNode* rootNode, int dataval) {
+BTNode* addNode(BTNode* rootNode, Products dataval) {
     BTNode* newNode = new BTNode(dataval);
     if(addNode(rootNode, newNode) == NULL) {
-        //cout << dataval << " already in tree" << endl;
+        cout << dataval.ratio << " already in tree" << endl;
     } else {
-        //cout << dataval << " succesfully added" << endl;
+        cout << dataval.ratio << " succesfully added" << endl;
     }
     return(rootNode);
 }
 
-/**
- * This generates a simple tree to play with
- * 
- * It is a bit of a hack.
- */
-BTNode* genExampleTree(BTNode* root) {
-    //int inData[] = {1,2,3,4,5,6,7};
-    int inData[] = {4,6,5,7,2,1,3};
-    int classData[] = {1,3,4,5,6,7,8,9,11,12,13,14};
-    for(int ii = 0; ii < 7; ii++) {
-        addNode(root, inData[ii]);
-    }
-    return root;
+int randomGen(int min, int max) {
+
+    double random = rand() % max + min;
+    //cout << rand() % max << endl;
+    return random;
 }
 
-/** This is a tree generated using a vector.
- * 
- */
-BTNode* genTree(vector<int> Supplier){
-    BTNode* newNode = new BTNode(0);
-    for (int x : Supplier)
-            addNode(newNode, x);
-    cout << endl;
-    return newNode;
+std::vector<Products> genProducts(int n) {
+    vector<Products> output;
+    for (int i = 0; i < n; i++) {
+        output.push_back(Products(randomGen(1,1000), randomGen(5, 200)));
+    }
+    return output;
+}
 
-};
-
-/**
- * Prints out a representtation of a binary search tree
- * 
- * @param rootNode is a pointer to the root node
- */
 void printTree(BTNode* rootNode) {
     queue<BTNode*> todo; // the queue of nodes left to visit
     BTNode* cur; // current node
@@ -159,7 +155,7 @@ void printTree(BTNode* rootNode) {
     while(!todo.empty()) {
         cur = todo.front();
         // Print current node
-        cout << cur->nodeName() << ':' << cur->nodeData() << '\t';
+        cout << cur->nodeName() << ':' << cur->nodeData().ratio << '\t';
         // add cur->left to queue
         if(cur->left != NULL) {
             todo.push(cur->left);
@@ -184,17 +180,18 @@ void printTree(BTNode* rootNode) {
  * @param node is the current node being printed
  * @param isLeft bool true if the node is a left node
  */
+
 void printBT(const string& prefix, BTNode* node, bool isLeft)
 {
     if( node != NULL )
     {
         cout << prefix;
 
-        cout << (isLeft ? "L--" : "R--" );
+        cout << (isLeft ? "|--" : "--" );
 
         // print the value of the node
         //cout << node->nodeName() << ':' << node->nodeData() << std::endl;
-        cout << node->nodeData() << std::endl;
+        cout << node->nodeData().ratio << std::endl;
 
         // enter the next tree level - left and right branch
         printBT( prefix + (isLeft ? "|   " : "    "), node->left, true);
@@ -207,90 +204,36 @@ void printBT(const string& prefix, BTNode* node, bool isLeft)
  * 
  * @param node is the root node of the tree to be printed
  */
+
 void printBT(BTNode* node)
 {
     printBT("", node, false);
 }
 
-/**
- * This calculates the height (max number of steps until leaf node)
- * 
- * @param pointer to a BTNode
- * @returns integer count of height
- */
-int height(BTNode* u) {
-    if (u == NULL) {
-        return(-1);
+
+void createTree(vector<Products>& tree, int index) {
+    BTNode* root = new BTNode(tree[index]);
+    for (int i = 0; i < tree.size(); i++) {
+        addNode(root, tree[i]);
     }
-    return(1 + max(height(u->left), height(u->right)));
+    printBT(root);
 }
 
-/** randTreeGen takes a integer, n and makes a BT tree from 1 to n that is randomly shuffled.
- * 
- * @param n refers to the amount of data in those trees from 1 to n
- */ 
-BTNode* randTreeGen(int n){
-    int arr[n];
-    for(int k = 1; k < n+1; k++){
-        arr[k-1] = k;
-    };
-    int size = sizeof(arr) / sizeof(arr[0]); //gets size of array
-
-    vector<int> Vect(arr, arr + n);
-
-    unsigned seed = std::chrono::system_clock::now().time_since_epoch().count(); //gets a seed based on time to shuffle Vect by
-    shuffle (Vect.begin(), Vect.end(), std::default_random_engine(seed)); //shuffles the vector
-    BTNode* Final = genTree(Vect);
-    //printBT(Final);
-    return(Final);
-}
-
-/** Takes two integers, generates random binary trees off of them, and returns the minimum height, maximum height, and average height.
- * 
- * @param m refers to the number of trees you want to make
- * @param n refers to the amount of data in those trees from 1 to n
- * 
- */
-int randTreeTest(int m, int n){
-    float total = 0;
-    int min = 0;
-    int max = 0;
-    float a = m;
-    float average = 0.0;
-    BTNode* minTree = new BTNode(0);
-    for(int x = 0; x < m; x++) { 
-       BTNode* testNode = randTreeGen(n);
-       int hi = height(testNode);
-       //cout << "height: " << hi << endl; 
-       if(min == 0){
-           min = hi;
-           max = hi;
-           minTree = testNode;
-           //cout << "test min " << min << endl;
-       }
-       else if(hi > max)
-       {  
-           max = hi;
-           //cout << " test max" << endl;
-       }
-       else if (hi < min)
-       {
-           min = hi;
-           minTree = testNode;
-           //cout << " test min" << endl;
-       }
-       total += hi;
-       cout << "tree " << x+1 << " has been successfully generated." << endl;
-    }
-    average = total/a;
-    cout << endl;
-    cout << "one of the smallest BT, heightwise: " << endl;
-    printBT(minTree);
-    //cout << "total: " << total << endl;
-    cout << " min: " << min << " max: " << max << " average: " << average << endl;
-    return(0);     
+bool comparator(const Products& a, const Products& b) {
+    return a.ratio < b.ratio;
 }
 
 int main(int, char**) {
-    randTreeTest(100,26);    
+    srand(time(NULL));
+    vector<Products> products = genProducts(50);
+    auto max = std::max_element(products.begin(), products.end(), [](const Products& a, const Products& b){
+        return a.ratio < b.ratio;
+    });
+    int index = distance(products.begin(), max);
+    cout << max->ratio << endl;
+    //sort(products.begin(), products.end(), &comparator);
+    for (int i = 0; i < products.size(); i++) {
+        cout << i << " : " << products[i].ratio << endl;
+    }
+    createTree(products, index);
 }
