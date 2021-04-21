@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['parent_33',['parent',['../classBTNode.html#aaa5aaec4ddd0079333338a7c3b18ca5a',1,'BTNode']]],
-  ['price_34',['price',['../classBTNode.html#a6b0922be6b8bc2a7c7f7883b8dfd6bf2',1,'BTNode']]]
+  ['parent_35',['parent',['../classBTNode.html#aaa5aaec4ddd0079333338a7c3b18ca5a',1,'BTNode']]],
+  ['price_36',['price',['../classProducts.html#ab1d2573a70f0164c5ea4e063fb2e3030',1,'Products']]]
 ];

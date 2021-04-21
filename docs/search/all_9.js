@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['weight_17',['weight',['../classBTNode.html#a22af01b578d9d7935ec2db96d3c09e37',1,'BTNode']]]
+  ['weight_18',['weight',['../classProducts.html#a5b2734b9aa9b32a7de13a143584516c1',1,'Products']]]
 ];

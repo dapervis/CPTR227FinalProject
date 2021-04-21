@@ -1,9 +1,9 @@
 /**
  * @file main.cpp
- * @brief This is a test of CMake, doxygen, and GitHub.
- * @details This is the long brief at the top of main.cpp.
- * @author Seth McNeill
- * @date 1/28/2021
+ * @brief This is the final project made with code from HW11.
+ * @details This program is based on the knapsack problem and uses a binary tree to store the data.
+ * @author Daniel Pervis and Lee Beckermeyer
+ * @date 4/21/2021
  * 
  */
 
@@ -15,6 +15,10 @@
 
 using namespace std;
 
+/**
+   * This is class has 2 different parameters used to make this object
+   
+   */
 class Products {
 
 private:
@@ -28,6 +32,12 @@ public:
 
     }
 
+    /**
+   * This is the constructor for this class
+   * @param p The price for the product.
+   * @param w The weight for the product.
+   *
+   */
     Products(double p, double w) {
         price = p;
         weight = w;
@@ -44,6 +54,7 @@ public:
   
   /**
    * BTNode constructor
+   * @param dataVal This is the product that is put into the binary tree.
    */
   BTNode(Products dataVal) {
       //cout << "name = " << name << endl;
@@ -70,12 +81,12 @@ public:
 
 private:
   char objName; // The object number created
-  static char name;
+  static char name; //unkown
   Products data; // Data that is stored in the node
 };
 
 
-char BTNode::name = 'A'; // initialize static variable
+char BTNode::name = 'A'; // initialize static variable, unkown
 
 /**
  * This function adds a node to a binary search tree.
@@ -130,6 +141,12 @@ BTNode* addNode(BTNode* rootNode, Products dataval) {
     return(rootNode);
 }
 
+/**
+ * Randomly generates a "double"(float in C++) number 
+ * 
+ * @param min The minimum number that can be generated.
+ * @param max The maximum number that can be generated.
+ */
 int randomGen(int min, int max) {
 
     double random = rand() % max + min;
@@ -137,6 +154,11 @@ int randomGen(int min, int max) {
     return random;
 }
 
+/**
+ * generates the products.
+ * 
+ * @param n The amount of products you want generated.
+ */
 std::vector<Products> genProducts(int n) {
     vector<Products> output;
     for (int i = 0; i < n; i++) {
@@ -145,6 +167,11 @@ std::vector<Products> genProducts(int n) {
     return output;
 }
 
+/**
+ * prints a binary tree
+ * 
+ * @param rootNode The binary tree you want printed.
+ */
 void printTree(BTNode* rootNode) {
     queue<BTNode*> todo; // the queue of nodes left to visit
     BTNode* cur; // current node
@@ -210,7 +237,12 @@ void printBT(BTNode* node)
     printBT("", node, false);
 }
 
-
+/**
+ * creates a binary tree
+ * 
+ * @param tree unknown
+ * @param index unknown
+ */
 void createTree(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
     for (int i = 0; i < tree.size(); i++) {
@@ -219,6 +251,12 @@ void createTree(vector<Products>& tree, int index) {
     printBT(root);
 }
 
+/**
+ * compares 2 products, currently not used.
+ * @param a product a
+ * @param b product b
+ * 
+ */
 bool comparator(const Products& a, const Products& b) {
     return a.ratio < b.ratio;
 }
