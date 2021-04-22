@@ -79,6 +79,13 @@ public:
         return(data);
     }
 
+    /**
+     * This reports the node's ratio
+     */
+    int nodeRatio() {
+        return(data.ratio);
+    }
+
 private:
   char objName; // The object number created
   static char name; //unkown
@@ -125,6 +132,41 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
 
 
 /**
+ * This function adds a node to a binary search tree.
+ * 
+ * @param rootNode is the pointer to the tree's root node
+ * @param n is the node to add
+ * @returns pointer to rootNode if successful, NULL otherwise
+ */
+BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
+    BTNode* prev = NULL;
+    BTNode* w = rootNode;
+    if(rootNode == NULL) { // starting an empty tree
+        rootNode = n;
+    } else {
+        // Find the node n belongs under, prev, n's new parent
+        while(w != NULL) {
+            prev = w;
+            if(n->nodeRatio() < w->nodeRatio()){
+                w = w->left;
+            } else if(n->nodeRatio() > w->nodeRatio()) {
+                w = w->right;
+            } else { // data already in the tree
+                return(NULL);
+            }
+        }
+        // now prev should contain the node that should be n's parent
+        // Add n to prev
+        if(n->nodeRatio() < prev->nodeRatio()) {
+            prev->left = n;
+        } else {
+            prev->right = n;
+        }
+    }
+    return(rootNode);
+}
+
+/**
  * Adds a new node with the passed data value
  * 
  * @param rootNode pointer to root node
@@ -134,12 +176,13 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
 BTNode* addNode(BTNode* rootNode, Products dataval) {
     BTNode* newNode = new BTNode(dataval);
     if(addNode(rootNode, newNode) == NULL) {
-        cout << dataval.ratio << " already in tree" << endl;
+        //cout << dataval << " already in tree" << endl;
     } else {
-        cout << dataval.ratio << " succesfully added" << endl;
+        //cout << dataval << " succesfully added" << endl;
     }
     return(rootNode);
 }
+
 
 /**
  * Randomly generates a "double"(float in C++) number 
@@ -214,7 +257,7 @@ void printBT(const string& prefix, BTNode* node, bool isLeft)
     {
         cout << prefix;
 
-        cout << (isLeft ? "|--" : "--" );
+        cout << (isLeft ? "L--" : "R--" );
 
         // print the value of the node
         //cout << node->nodeName() << ':' << node->nodeData() << std::endl;
@@ -238,16 +281,40 @@ void printBT(BTNode* node)
 }
 
 /**
- * creates a binary tree
+ * Lee's Crazy storage for random stuff, currently full of an experiment for the knapsack
+ */
+void LeeStorage(vector<Products>& tree, int index, int weight, int n, BTNode* root){
+   for (Products x : tree){
+        //addNode(root, x);
+            n++;
+            int newweight = x.weight + weight;
+            if(newweight>=500 or n == index){
+                continue;
+            }
+            else{
+                weight = newweight;
+                addNode(root, x);
+            }
+        
+            
+        }; 
+};
+
+/**
+ * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues
  * 
- * @param tree unknown
- * @param index unknown
+ * @param tree a vector of products you want to turn into a tree.
+ * @param index the size of the vector, needed with the current implementation.
  */
 void createTree(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
-    for (int i = 0; i < tree.size(); i++) {
-        addNode(root, tree[i]);
-    }
+    int weight = 0;
+    int n = 0;
+    for (Products x : tree){
+        addNode(root, x);
+        //LeeStorage(tree, index, weight, n ,root);//experiment, not any kind of official implementation    
+    };
+    cout << "Weight of Knapsack: " << weight << endl;
     printBT(root);
 }
 
@@ -270,7 +337,7 @@ int main(int, char**) {
     int index = distance(products.begin(), max);
     cout << max->ratio << endl;
     //sort(products.begin(), products.end(), &comparator);
-    for (int i = 0; i < products.size(); i++) {
+    for (int i = 1; i < products.size(); i++) {
         cout << i << " : " << products[i].ratio << endl;
     }
     createTree(products, index);
