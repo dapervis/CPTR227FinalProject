@@ -102,42 +102,6 @@ char BTNode::name = 'A'; // initialize static variable, unkown
  * @param n is the node to add
  * @returns pointer to rootNode if successful, NULL otherwise
  */
-BTNode* addNode(BTNode* rootNode, BTNode* n) {
-    BTNode* prev = NULL;
-    BTNode* w = rootNode;
-    if(rootNode == NULL) { // starting an empty tree
-        rootNode = n;
-    } else {
-        // Find the node n belongs under, prev, n's new parent
-        while(w != NULL) {
-            prev = w;
-            if(n->nodeData().ratio < w->nodeData().ratio){
-                w = w->left;
-            } else if(n->nodeData().ratio > w->nodeData().ratio) {
-                w = w->right;
-            } else { // data already in the tree
-                return(NULL);
-            }
-        }
-        // now prev should contain the node that should be n's parent
-        // Add n to prev
-        if(n->nodeData().ratio < prev->nodeData().ratio) {
-            prev->left = n;
-        } else {
-            prev->right = n;
-        }
-    }
-    return(rootNode);
-}
-
-
-/**
- * This function adds a node to a binary search tree.
- * 
- * @param rootNode is the pointer to the tree's root node
- * @param n is the node to add
- * @returns pointer to rootNode if successful, NULL otherwise
- */
 BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
     BTNode* prev = NULL;
     BTNode* w = rootNode;
@@ -175,7 +139,7 @@ BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
  */
 BTNode* addNode(BTNode* rootNode, Products dataval) {
     BTNode* newNode = new BTNode(dataval);
-    if(addNode(rootNode, newNode) == NULL) {
+    if(addNodeTree(rootNode, newNode) == NULL) {
         //cout << dataval << " already in tree" << endl;
     } else {
         //cout << dataval << " succesfully added" << endl;
@@ -281,11 +245,16 @@ void printBT(BTNode* node)
 }
 
 /**
- * Lee's Crazy storage for random stuff, currently full of an experiment for the knapsack
+ * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues until the end of the vector.
+ * 
+ * @param tree a vector of products you want to turn into a tree.
+ * @param index the size of the vector, needed with the current implementation.
  */
-void LeeStorage(vector<Products>& tree, int index, int weight, int n, BTNode* root){
-   for (Products x : tree){
-        //addNode(root, x);
+void createTreeBruteForce(vector<Products>& tree, int index) {
+    BTNode* root = new BTNode(tree[index]);
+    int weight = 0;
+    int n = 0;
+    for (Products x : tree){
             n++;
             int newweight = x.weight + weight;
             if(newweight>=500 or n == index){
@@ -294,14 +263,17 @@ void LeeStorage(vector<Products>& tree, int index, int weight, int n, BTNode* ro
             else{
                 weight = newweight;
                 addNode(root, x);
+                x.weight + weight;
             }
         
             
-        }; 
+        };    
+    cout << "Weight of Knapsack: " << weight << endl;
+    printBT(root);
 };
 
 /**
- * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues
+ * creates a binary tree
  * 
  * @param tree a vector of products you want to turn into a tree.
  * @param index the size of the vector, needed with the current implementation.
@@ -311,8 +283,7 @@ void createTree(vector<Products>& tree, int index) {
     int weight = 0;
     int n = 0;
     for (Products x : tree){
-        addNode(root, x);
-        //LeeStorage(tree, index, weight, n ,root);//experiment, not any kind of official implementation    
+        addNode(root, x); 
     };
     cout << "Weight of Knapsack: " << weight << endl;
     printBT(root);
@@ -325,7 +296,7 @@ void createTree(vector<Products>& tree, int index) {
  * 
  */
 bool comparator(const Products& a, const Products& b) {
-    return a.ratio < b.ratio;
+    return a.ratio > b.ratio;
 }
 
 int main(int, char**) {
@@ -334,11 +305,11 @@ int main(int, char**) {
     auto max = std::max_element(products.begin(), products.end(), [](const Products& a, const Products& b){
         return a.ratio < b.ratio;
     });
-    int index = distance(products.begin(), max);
+    int index = distance(max, products.end());
     cout << max->ratio << endl;
-    //sort(products.begin(), products.end(), &comparator);
+    sort(products.begin(), products.end(), &comparator);
     for (int i = 1; i < products.size(); i++) {
         cout << i << " : " << products[i].ratio << endl;
     }
-    createTree(products, index);
+    createTreeBruteForce(products, index);
 }
