@@ -136,7 +136,7 @@ $(function() {
 <div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160; </div>
 <div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="keywordtype">char</span> BTNode::name = <span class="charliteral">&#39;A&#39;</span>; <span class="comment">// initialize static variable, unkown</span></div>
 <div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="main_8cpp.html#aca5da078a902f3801f279574f43b661d">  105</a></span>&#160;<a class="code" href="classBTNode.html">BTNode</a>* <a class="code" href="main_8cpp.html#aca5da078a902f3801f279574f43b661d">addNodeTree</a>(<a class="code" href="classBTNode.html">BTNode</a>* rootNode, <a class="code" href="classBTNode.html">BTNode</a>* n) {</div>
+<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">  105</a></span>&#160;<a class="code" href="classBTNode.html">BTNode</a>* <a class="code" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a>(<a class="code" href="classBTNode.html">BTNode</a>* rootNode, <a class="code" href="classBTNode.html">BTNode</a>* n) {</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* prev = NULL;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* w = rootNode;</div>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    <span class="keywordflow">if</span>(rootNode == NULL) { <span class="comment">// starting an empty tree</span></div>
@@ -145,171 +145,208 @@ $(function() {
 <div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;        <span class="comment">// Find the node n belongs under, prev, n&#39;s new parent</span></div>
 <div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;        <span class="keywordflow">while</span>(w != NULL) {</div>
 <div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;            prev = w;</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">if</span>(n-&gt;<a class="code" href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">nodeRatio</a>() &lt; w-&gt;<a class="code" href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">nodeRatio</a>()){</div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                w = w-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a>;</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(n-&gt;<a class="code" href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">nodeRatio</a>() &gt; w-&gt;<a class="code" href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">nodeRatio</a>()) {</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;                w = w-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a>;</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;            } <span class="keywordflow">else</span> { <span class="comment">// data already in the tree</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                <span class="keywordflow">return</span>(NULL);</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;        }</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;        <span class="comment">// now prev should contain the node that should be n&#39;s parent</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        <span class="comment">// Add n to prev</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="keywordflow">if</span>(n-&gt;<a class="code" href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">nodeRatio</a>() &lt; prev-&gt;<a class="code" href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">nodeRatio</a>()) {</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;            prev-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a> = n;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            prev-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a> = n;</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        }</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span>(rootNode);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad">  140</a></span>&#160;<a class="code" href="classBTNode.html">BTNode</a>* <a class="code" href="main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad">addNode</a>(<a class="code" href="classBTNode.html">BTNode</a>* rootNode, <a class="code" href="classProducts.html">Products</a> dataval) {</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* newNode = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(dataval);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="main_8cpp.html#aca5da078a902f3801f279574f43b661d">addNodeTree</a>(rootNode, newNode) == NULL) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;        <span class="comment">//cout &lt;&lt; dataval &lt;&lt; &quot; already in tree&quot; &lt;&lt; endl;</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="comment">//cout &lt;&lt; dataval &lt;&lt; &quot; succesfully added&quot; &lt;&lt; endl;</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    }</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    <span class="keywordflow">return</span>(rootNode);</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;}</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160; </div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno"><a class="line" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">  157</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(<span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160; </div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <span class="keywordtype">double</span> random = rand() % max + min;</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <span class="comment">//cout &lt;&lt; rand() % max &lt;&lt; endl;</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span> random;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;}</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno"><a class="line" href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">  169</a></span>&#160;std::vector&lt;Products&gt; <a class="code" href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">genProducts</a>(<span class="keywordtype">int</span> n) {</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    vector&lt;Products&gt; output;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; i++) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;        output.push_back(<a class="code" href="classProducts.html">Products</a>(<a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(1,1000), <a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(5, 200)));</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    }</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">return</span> output;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;}</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160; </div>
-<div class="line"><a name="l00182"></a><span class="lineno"><a class="line" href="main_8cpp.html#a347348993c7b98c617b52658ca971e86">  182</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#a347348993c7b98c617b52658ca971e86">printTree</a>(<a class="code" href="classBTNode.html">BTNode</a>* rootNode) {</div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;    queue&lt;BTNode*&gt; todo; <span class="comment">// the queue of nodes left to visit</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* cur; <span class="comment">// current node</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* prev; <span class="comment">// The previous node</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160; </div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    todo.push(rootNode);</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;    <span class="keywordflow">while</span>(!todo.empty()) {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;        cur = todo.front();</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;        <span class="comment">// Print current node</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;        cout &lt;&lt; cur-&gt;<a class="code" href="classBTNode.html#aab5504ad5a61b97ed480920e27a8502b">nodeName</a>() &lt;&lt; <span class="charliteral">&#39;:&#39;</span> &lt;&lt; cur-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        <span class="comment">// add cur-&gt;left to queue</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="keywordflow">if</span>(cur-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a> != NULL) {</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;            todo.push(cur-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a>);</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        }</div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="comment">// add cur-&gt;right to queue</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;        <span class="keywordflow">if</span>(cur-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a> != NULL) {</div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;            todo.push(cur-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a>);</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        }</div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="comment">// remove cur from queue</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;        todo.pop();</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    }</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    cout &lt;&lt; endl;</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;}</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160; </div>
-<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">  218</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; prefix, <a class="code" href="classBTNode.html">BTNode</a>* node, <span class="keywordtype">bool</span> isLeft)</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;{</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="keywordflow">if</span>( node != NULL )</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;        cout &lt;&lt; prefix;</div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160; </div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;        cout &lt;&lt; (isLeft ? <span class="stringliteral">&quot;L--&quot;</span> : <span class="stringliteral">&quot;R--&quot;</span> );</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;        <span class="comment">// print the value of the node</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        <span class="comment">//cout &lt;&lt; node-&gt;nodeName() &lt;&lt; &#39;:&#39; &lt;&lt; node-&gt;nodeData() &lt;&lt; std::endl;</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;        cout &lt;&lt; node-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &lt;&lt; std::endl;</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="comment">// enter the next tree level - left and right branch</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>( prefix + (isLeft ? <span class="stringliteral">&quot;|   &quot;</span> : <span class="stringliteral">&quot;    &quot;</span>), node-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a>, <span class="keyword">true</span>);</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;        <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>( prefix + (isLeft ? <span class="stringliteral">&quot;|   &quot;</span> : <span class="stringliteral">&quot;    &quot;</span>), node-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a>, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;    }</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00242"></a><span class="lineno"><a class="line" href="main_8cpp.html#afbece08c59d5eb96fa61b14c52b20b31">  242</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(<a class="code" href="classBTNode.html">BTNode</a>* node)</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;{</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(<span class="stringliteral">&quot;&quot;</span>, node, <span class="keyword">false</span>);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160; </div>
-<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">  253</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">createTreeBruteForce</a>(vector&lt;Products&gt;&amp; tree, <span class="keywordtype">int</span> index) {</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* root = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(tree[index]);</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    <span class="keywordtype">int</span> weight = 0;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <span class="keywordtype">int</span> n = 0;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classProducts.html">Products</a> x : tree){</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;            n++;</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;            <span class="keywordtype">int</span> newweight = x.weight + weight;</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;            <span class="keywordflow">if</span>(newweight&gt;=500 or n == index){</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;                <span class="keywordflow">continue</span>;</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            }</div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">else</span>{</div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                weight = newweight;</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;                <a class="code" href="main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad">addNode</a>(root, x);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;                x.weight + weight;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;            }</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;        </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;            </div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;        };    </div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Weight of Knapsack: &quot;</span> &lt;&lt; weight &lt;&lt; endl;</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(root);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;};</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="main_8cpp.html#aa178918a9957c575bd943f8d980cdd58">  281</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#aa178918a9957c575bd943f8d980cdd58">createTree</a>(vector&lt;Products&gt;&amp; tree, <span class="keywordtype">int</span> index) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* root = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(tree[index]);</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="keywordtype">int</span> weight = 0;</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="keywordtype">int</span> n = 0;</div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classProducts.html">Products</a> x : tree){</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;        <a class="code" href="main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad">addNode</a>(root, x); </div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    };</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Weight of Knapsack: &quot;</span> &lt;&lt; weight &lt;&lt; endl;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(root);</div>
-<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;}</div>
-<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160; </div>
-<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">  298</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">comparator</a>(<span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; b) {</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <span class="keywordflow">return</span> a.<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &gt; b.<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a>;</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0">  302</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0">main</a>(<span class="keywordtype">int</span>, <span class="keywordtype">char</span>**) {</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;    srand(time(NULL));</div>
-<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;    vector&lt;Products&gt; products = <a class="code" href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">genProducts</a>(50);</div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;    <span class="keyword">auto</span> max = std::max_element(products.begin(), products.end(), [](<span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; b){</div>
-<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;        return a.ratio &lt; b.ratio;</div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    });</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    <span class="keywordtype">int</span> index = distance(max, products.end());</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    cout &lt;&lt; max-&gt;ratio &lt;&lt; endl;</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    sort(products.begin(), products.end(), &amp;<a class="code" href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">comparator</a>);</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; products.size(); i++) {</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;        cout &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; : &quot;</span> &lt;&lt; products[i].ratio &lt;&lt; endl;</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;    }</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;    <a class="code" href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">createTreeBruteForce</a>(products, index);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;}</div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;            <span class="keywordflow">if</span>(n-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &lt; w-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a>){</div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;                <span class="comment">//cout &lt;&lt; w-&gt;nodeData().ratio &lt;&lt; &quot; added&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;                w = w-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a>;</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;            } <span class="keywordflow">else</span> <span class="keywordflow">if</span>(n-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &gt; w-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a>) {</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;                <span class="comment">//cout &lt;&lt; w-&gt;nodeData().ratio &lt;&lt; &quot; added&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;                w = w-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a>;</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;            } <span class="keywordflow">else</span> { <span class="comment">// data already in the tree</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;                <span class="keywordflow">return</span>(NULL);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;            }</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;        }</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;        <span class="comment">// now prev should contain the node that should be n&#39;s parent</span></div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;        <span class="comment">// Add n to prev</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;        <span class="keywordflow">if</span>(n-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &lt; prev-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a>) {</div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;            prev-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a> = n;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;            prev-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a> = n;</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;        }</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    }</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordflow">return</span>(rootNode);</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;}</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno"><a class="line" href="main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad">  142</a></span>&#160;<a class="code" href="classBTNode.html">BTNode</a>* <a class="code" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a>(<a class="code" href="classBTNode.html">BTNode</a>* rootNode, <a class="code" href="classProducts.html">Products</a> dataval) {</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* newNode = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(dataval);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">if</span>(<a class="code" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a>(rootNode, newNode) == NULL) {</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;        <span class="comment">//cout &lt;&lt; dataval.ratio &lt;&lt; &quot; already in tree&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;    } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;        <span class="comment">//cout &lt;&lt; dataval.ratio &lt;&lt; &quot; succesfully added&quot; &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span>(rootNode);</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;}</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160; </div>
+<div class="line"><a name="l00159"></a><span class="lineno"><a class="line" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">  159</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(<span class="keywordtype">int</span> min, <span class="keywordtype">int</span> max) {</div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160; </div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;   <span class="keywordtype">double</span> random = rand() % max + min;</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;    <span class="comment">//int random = rand() % max + min;</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="comment">//cout &lt;&lt; rand() % max &lt;&lt; endl;</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> random;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;}</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160; </div>
+<div class="line"><a name="l00172"></a><span class="lineno"><a class="line" href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">  172</a></span>&#160;std::vector&lt;Products&gt; <a class="code" href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">genProducts</a>(<span class="keywordtype">int</span> n) {</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    vector&lt;Products&gt; output;</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; n; i++) {</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;        output.push_back(<a class="code" href="classProducts.html">Products</a>(<a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(1,1000), <a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(5, 200)));</div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;    }</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="keywordflow">return</span> output;</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160; </div>
+<div class="line"><a name="l00185"></a><span class="lineno"><a class="line" href="main_8cpp.html#a347348993c7b98c617b52658ca971e86">  185</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#a347348993c7b98c617b52658ca971e86">printTree</a>(<a class="code" href="classBTNode.html">BTNode</a>* rootNode) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    queue&lt;BTNode*&gt; todo; <span class="comment">// the queue of nodes left to visit</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* cur; <span class="comment">// current node</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* prev; <span class="comment">// The previous node</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    todo.push(rootNode);</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160; </div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="keywordflow">while</span>(!todo.empty()) {</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;        cur = todo.front();</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;        <span class="comment">// Print current node</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;        cout &lt;&lt; cur-&gt;<a class="code" href="classBTNode.html#aab5504ad5a61b97ed480920e27a8502b">nodeName</a>() &lt;&lt; <span class="charliteral">&#39;:&#39;</span> &lt;&lt; cur-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &lt;&lt; <span class="charliteral">&#39;\t&#39;</span>;</div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;        <span class="comment">// add cur-&gt;left to queue</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;        <span class="keywordflow">if</span>(cur-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a> != NULL) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;            todo.push(cur-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a>);</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;        }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;        <span class="comment">// add cur-&gt;right to queue</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;        <span class="keywordflow">if</span>(cur-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a> != NULL) {</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;            todo.push(cur-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a>);</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;        }</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;        <span class="comment">// remove cur from queue</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;        todo.pop();</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    cout &lt;&lt; endl;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
+<div class="line"><a name="l00221"></a><span class="lineno"><a class="line" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">  221</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(<span class="keyword">const</span> <span class="keywordtype">string</span>&amp; prefix, <a class="code" href="classBTNode.html">BTNode</a>* node, <span class="keywordtype">bool</span> isLeft)</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;{</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <span class="keywordflow">if</span>( node != NULL )</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    {</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;        cout &lt;&lt; prefix;</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160; </div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;        cout &lt;&lt; (isLeft ? <span class="stringliteral">&quot;L--&quot;</span> : <span class="stringliteral">&quot;R--&quot;</span> );</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160; </div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;        <span class="comment">// print the value of the node</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;        <span class="comment">//cout &lt;&lt; node-&gt;nodeName() &lt;&lt; &#39;:&#39; &lt;&lt; node-&gt;nodeData() &lt;&lt; std::endl;</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;        cout &lt;&lt; node-&gt;<a class="code" href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">nodeData</a>().<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &lt;&lt; std::endl;</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160; </div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;        <span class="comment">// enter the next tree level - left and right branch</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;        <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>( prefix + (isLeft ? <span class="stringliteral">&quot;|   &quot;</span> : <span class="stringliteral">&quot;    &quot;</span>), node-&gt;<a class="code" href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">left</a>, <span class="keyword">true</span>);</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;        <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>( prefix + (isLeft ? <span class="stringliteral">&quot;|   &quot;</span> : <span class="stringliteral">&quot;    &quot;</span>), node-&gt;<a class="code" href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">right</a>, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;    }</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
+<div class="line"><a name="l00245"></a><span class="lineno"><a class="line" href="main_8cpp.html#afbece08c59d5eb96fa61b14c52b20b31">  245</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(<a class="code" href="classBTNode.html">BTNode</a>* node)</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;{</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(<span class="stringliteral">&quot;&quot;</span>, node, <span class="keyword">false</span>);</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160; </div>
+<div class="line"><a name="l00256"></a><span class="lineno"><a class="line" href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">  256</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">createTreeBruteForce</a>(vector&lt;Products&gt;&amp; tree, <span class="keywordtype">int</span> index) {</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* root = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(tree[index]);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordtype">int</span> weight = 0;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="keywordtype">int</span> price = 0;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classProducts.html">Products</a> x : tree){</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;            <span class="keywordtype">int</span> newweight = x.weight + weight;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;            <span class="keywordtype">int</span> newprice = x.price + price;</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;            <span class="keywordflow">if</span>(newweight&gt;=500){</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;                <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;            }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;            <span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;                weight = newweight;</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;                price = newprice;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;                <a class="code" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a>(root, x);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;                x.weight + weight;</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;                x.price + price;</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;            }</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;        </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;            </div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;        };    </div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Tree generated using a brute force algorithm after sorting the object&#39;s ratios&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Weight of the Knapsack: &quot;</span> &lt;&lt; weight &lt;&lt; <span class="stringliteral">&quot; lbs&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Price of the Knapsack: &quot;</span> &lt;&lt; price &lt;&lt; <span class="stringliteral">&quot;$&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(root);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;};</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="main_8cpp.html#a31fa96f1f6a3a3a1881d5535dbe8d5a2">  288</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#a31fa96f1f6a3a3a1881d5535dbe8d5a2">RandomTree</a>(vector&lt;Products&gt;&amp; tree, <span class="keywordtype">int</span> index) {</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* root = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(tree[index]);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <span class="keywordtype">int</span> weight = 0;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <span class="keywordtype">int</span> price = 0;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <span class="keywordtype">int</span> n = 0;</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;    <span class="keywordflow">while</span>(n &lt; 10){</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;        n++;</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;        <a class="code" href="classProducts.html">Products</a> x = tree[<a class="code" href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a>(0,index)];</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;        <span class="keywordtype">int</span> newweight = x.<a class="code" href="classProducts.html#a5b2734b9aa9b32a7de13a143584516c1">weight</a> + weight;</div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;        <span class="keywordtype">int</span> newprice = x.<a class="code" href="classProducts.html#ab1d2573a70f0164c5ea4e063fb2e3030">price</a> + price;</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;        <span class="keywordflow">if</span>(newweight&gt;=500){</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;                    <span class="keywordflow">continue</span>;</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;                }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;                <span class="keywordflow">else</span>{</div>
+<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;                    weight = newweight;</div>
+<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;                    price = newprice;</div>
+<div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160;                    <a class="code" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a>(root, x);</div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;                    x.<a class="code" href="classProducts.html#a5b2734b9aa9b32a7de13a143584516c1">weight</a> + weight;</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;                    x.<a class="code" href="classProducts.html#ab1d2573a70f0164c5ea4e063fb2e3030">price</a> + price;</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;                } </div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;    }  </div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Tree generated using a random algorithm&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Weight of the Knapsack: &quot;</span> &lt;&lt; weight &lt;&lt; <span class="stringliteral">&quot; lbs&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;    cout &lt;&lt; <span class="stringliteral">&quot;Price of the Knapsack: &quot;</span> &lt;&lt; price &lt;&lt; <span class="stringliteral">&quot;$&quot;</span> &lt;&lt; endl;</div>
+<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(root);</div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;};</div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160; </div>
+<div class="line"><a name="l00321"></a><span class="lineno"><a class="line" href="main_8cpp.html#aa178918a9957c575bd943f8d980cdd58">  321</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="main_8cpp.html#aa178918a9957c575bd943f8d980cdd58">createTree</a>(vector&lt;Products&gt;&amp; tree, <span class="keywordtype">int</span> index) {</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <a class="code" href="classBTNode.html">BTNode</a>* root = <span class="keyword">new</span> <a class="code" href="classBTNode.html">BTNode</a>(tree[index]);</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classProducts.html">Products</a> x : tree){</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;        <a class="code" href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a>(root, x); </div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    }</div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <a class="code" href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a>(root);</div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;}</div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160; </div>
+<div class="line"><a name="l00335"></a><span class="lineno"><a class="line" href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">  335</a></span>&#160;<span class="keywordtype">bool</span> <a class="code" href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">comparator</a>(<span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; b) {</div>
+<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <span class="keywordflow">return</span> a.<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a> &gt; b.<a class="code" href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">ratio</a>;</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;}</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160; </div>
+<div class="line"><a name="l00339"></a><span class="lineno"><a class="line" href="main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0">  339</a></span>&#160;<span class="keywordtype">int</span> <a class="code" href="main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0">main</a>(<span class="keywordtype">int</span>, <span class="keywordtype">char</span>**) {</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    srand(time(NULL));</div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;    vector&lt;Products&gt; products = <a class="code" href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">genProducts</a>(50);</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <span class="keyword">auto</span> max = std::max_element(products.begin(), products.end(), [](<span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; a, <span class="keyword">const</span> <a class="code" href="classProducts.html">Products</a>&amp; b){</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;        return a.ratio &lt; b.ratio;</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;    });</div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;    <span class="keywordtype">int</span> index = distance(max, products.end());</div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;    cout &lt;&lt; max-&gt;ratio &lt;&lt; endl;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    sort(products.begin(), products.end(), &amp;<a class="code" href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">comparator</a>);</div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;    <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 1; i &lt; products.size(); i++) {</div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;        cout &lt;&lt; i &lt;&lt; <span class="stringliteral">&quot; : &quot;</span> &lt;&lt; products[i].ratio &lt;&lt; endl;</div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;    }</div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160; </div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;    <span class="keywordflow">for</span> (<a class="code" href="classProducts.html">Products</a> x : products){</div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;        cout &lt;&lt; x.ratio &lt;&lt; endl;</div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    }</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160; </div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;    <a class="code" href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">createTreeBruteForce</a>(products, index);</div>
+<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;    <a class="code" href="main_8cpp.html#a31fa96f1f6a3a3a1881d5535dbe8d5a2">RandomTree</a>(products, index);</div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;}</div>
 </div><!-- fragment --></div><!-- contents -->
-<div class="ttc" id="amain_8cpp_html_afc3a4c842afb20ad9abeb59d4a925c21"><div class="ttname"><a href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a></div><div class="ttdeci">int randomGen(int min, int max)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00157">main.cpp:157</a></div></div>
+<div class="ttc" id="amain_8cpp_html_afc3a4c842afb20ad9abeb59d4a925c21"><div class="ttname"><a href="main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21">randomGen</a></div><div class="ttdeci">int randomGen(int min, int max)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00159">main.cpp:159</a></div></div>
 <div class="ttc" id="aclassBTNode_html_abf305f6d20e62fb41c6618bba1262fa6"><div class="ttname"><a href="classBTNode.html#abf305f6d20e62fb41c6618bba1262fa6">BTNode::left</a></div><div class="ttdeci">BTNode * left</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00050">main.cpp:50</a></div></div>
 <div class="ttc" id="aclassBTNode_html_ac41dfc53e5c70d2babe2e50b9488c71c"><div class="ttname"><a href="classBTNode.html#ac41dfc53e5c70d2babe2e50b9488c71c">BTNode::nodeData</a></div><div class="ttdeci">Products nodeData()</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00078">main.cpp:78</a></div></div>
+<div class="ttc" id="amain_8cpp_html_ab6dd0209b4b5ed4f57f1c70f6d34e93f"><div class="ttname"><a href="main_8cpp.html#ab6dd0209b4b5ed4f57f1c70f6d34e93f">addNode</a></div><div class="ttdeci">BTNode * addNode(BTNode *rootNode, BTNode *n)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00105">main.cpp:105</a></div></div>
 <div class="ttc" id="aclassProducts_html_a2fbbef37e3ed9df69f272a6a6c3f4058"><div class="ttname"><a href="classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058">Products::ratio</a></div><div class="ttdeci">double ratio</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00029">main.cpp:29</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a347348993c7b98c617b52658ca971e86"><div class="ttname"><a href="main_8cpp.html#a347348993c7b98c617b52658ca971e86">printTree</a></div><div class="ttdeci">void printTree(BTNode *rootNode)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00182">main.cpp:182</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a347348993c7b98c617b52658ca971e86"><div class="ttname"><a href="main_8cpp.html#a347348993c7b98c617b52658ca971e86">printTree</a></div><div class="ttdeci">void printTree(BTNode *rootNode)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00185">main.cpp:185</a></div></div>
 <div class="ttc" id="aclassBTNode_html_ac003511b85b90af94dff59ca5ca93348"><div class="ttname"><a href="classBTNode.html#ac003511b85b90af94dff59ca5ca93348">BTNode::nodeRatio</a></div><div class="ttdeci">int nodeRatio()</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00085">main.cpp:85</a></div></div>
-<div class="ttc" id="amain_8cpp_html_ae9ece8422d18086bf552071fa2aff4ad"><div class="ttname"><a href="main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad">addNode</a></div><div class="ttdeci">BTNode * addNode(BTNode *rootNode, Products dataval)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00140">main.cpp:140</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a31fa96f1f6a3a3a1881d5535dbe8d5a2"><div class="ttname"><a href="main_8cpp.html#a31fa96f1f6a3a3a1881d5535dbe8d5a2">RandomTree</a></div><div class="ttdeci">void RandomTree(vector&lt; Products &gt; &amp;tree, int index)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00288">main.cpp:288</a></div></div>
 <div class="ttc" id="aclassBTNode_html_ad1cc0a99903843b914faa51ec7168698"><div class="ttname"><a href="classBTNode.html#ad1cc0a99903843b914faa51ec7168698">BTNode::BTNode</a></div><div class="ttdeci">BTNode(Products dataVal)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00059">main.cpp:59</a></div></div>
 <div class="ttc" id="aclassBTNode_html_af601e8fb1ad88e48379281bc47e5cb95"><div class="ttname"><a href="classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95">BTNode::right</a></div><div class="ttdeci">BTNode * right</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00051">main.cpp:51</a></div></div>
 <div class="ttc" id="aclassBTNode_html"><div class="ttname"><a href="classBTNode.html">BTNode</a></div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00048">main.cpp:48</a></div></div>
-<div class="ttc" id="amain_8cpp_html_aca5da078a902f3801f279574f43b661d"><div class="ttname"><a href="main_8cpp.html#aca5da078a902f3801f279574f43b661d">addNodeTree</a></div><div class="ttdeci">BTNode * addNodeTree(BTNode *rootNode, BTNode *n)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00105">main.cpp:105</a></div></div>
-<div class="ttc" id="amain_8cpp_html_ab083398539a20919e966c1b152c9e279"><div class="ttname"><a href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">createTreeBruteForce</a></div><div class="ttdeci">void createTreeBruteForce(vector&lt; Products &gt; &amp;tree, int index)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00253">main.cpp:253</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a477dd8d15986c75d67da70d7de30e4ea"><div class="ttname"><a href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">comparator</a></div><div class="ttdeci">bool comparator(const Products &amp;a, const Products &amp;b)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00298">main.cpp:298</a></div></div>
-<div class="ttc" id="amain_8cpp_html_aa178918a9957c575bd943f8d980cdd58"><div class="ttname"><a href="main_8cpp.html#aa178918a9957c575bd943f8d980cdd58">createTree</a></div><div class="ttdeci">void createTree(vector&lt; Products &gt; &amp;tree, int index)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00281">main.cpp:281</a></div></div>
+<div class="ttc" id="amain_8cpp_html_ab083398539a20919e966c1b152c9e279"><div class="ttname"><a href="main_8cpp.html#ab083398539a20919e966c1b152c9e279">createTreeBruteForce</a></div><div class="ttdeci">void createTreeBruteForce(vector&lt; Products &gt; &amp;tree, int index)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00256">main.cpp:256</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a477dd8d15986c75d67da70d7de30e4ea"><div class="ttname"><a href="main_8cpp.html#a477dd8d15986c75d67da70d7de30e4ea">comparator</a></div><div class="ttdeci">bool comparator(const Products &amp;a, const Products &amp;b)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00335">main.cpp:335</a></div></div>
+<div class="ttc" id="amain_8cpp_html_aa178918a9957c575bd943f8d980cdd58"><div class="ttname"><a href="main_8cpp.html#aa178918a9957c575bd943f8d980cdd58">createTree</a></div><div class="ttdeci">void createTree(vector&lt; Products &gt; &amp;tree, int index)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00321">main.cpp:321</a></div></div>
 <div class="ttc" id="aclassProducts_html_a525666743b7385d15444dd3f083eaa0c"><div class="ttname"><a href="classProducts.html#a525666743b7385d15444dd3f083eaa0c">Products::Products</a></div><div class="ttdeci">Products()</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00031">main.cpp:31</a></div></div>
 <div class="ttc" id="aclassProducts_html_ab1d2573a70f0164c5ea4e063fb2e3030"><div class="ttname"><a href="classProducts.html#ab1d2573a70f0164c5ea4e063fb2e3030">Products::price</a></div><div class="ttdeci">double price</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00027">main.cpp:27</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a4e9e109df21117b6c54da53a5fd50911"><div class="ttname"><a href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">genProducts</a></div><div class="ttdeci">std::vector&lt; Products &gt; genProducts(int n)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00169">main.cpp:169</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a4e9e109df21117b6c54da53a5fd50911"><div class="ttname"><a href="main_8cpp.html#a4e9e109df21117b6c54da53a5fd50911">genProducts</a></div><div class="ttdeci">std::vector&lt; Products &gt; genProducts(int n)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00172">main.cpp:172</a></div></div>
 <div class="ttc" id="aclassBTNode_html_aaa5aaec4ddd0079333338a7c3b18ca5a"><div class="ttname"><a href="classBTNode.html#aaa5aaec4ddd0079333338a7c3b18ca5a">BTNode::parent</a></div><div class="ttdeci">BTNode * parent</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00052">main.cpp:52</a></div></div>
-<div class="ttc" id="amain_8cpp_html_af78b877c9954d526f49174eebb80ca62"><div class="ttname"><a href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a></div><div class="ttdeci">void printBT(const string &amp;prefix, BTNode *node, bool isLeft)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00218">main.cpp:218</a></div></div>
-<div class="ttc" id="amain_8cpp_html_a2c3f6775325c30275d11c6abee2db6a0"><div class="ttname"><a href="main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0">main</a></div><div class="ttdeci">int main(int, char **)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00302">main.cpp:302</a></div></div>
+<div class="ttc" id="amain_8cpp_html_af78b877c9954d526f49174eebb80ca62"><div class="ttname"><a href="main_8cpp.html#af78b877c9954d526f49174eebb80ca62">printBT</a></div><div class="ttdeci">void printBT(const string &amp;prefix, BTNode *node, bool isLeft)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00221">main.cpp:221</a></div></div>
+<div class="ttc" id="amain_8cpp_html_a2c3f6775325c30275d11c6abee2db6a0"><div class="ttname"><a href="main_8cpp.html#a2c3f6775325c30275d11c6abee2db6a0">main</a></div><div class="ttdeci">int main(int, char **)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00339">main.cpp:339</a></div></div>
 <div class="ttc" id="aclassProducts_html"><div class="ttname"><a href="classProducts.html">Products</a></div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00022">main.cpp:22</a></div></div>
 <div class="ttc" id="aclassProducts_html_a0e9692e4e591af3de0bb9e1afc8d4b93"><div class="ttname"><a href="classProducts.html#a0e9692e4e591af3de0bb9e1afc8d4b93">Products::Products</a></div><div class="ttdeci">Products(double p, double w)</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00041">main.cpp:41</a></div></div>
 <div class="ttc" id="aclassProducts_html_a5b2734b9aa9b32a7de13a143584516c1"><div class="ttname"><a href="classProducts.html#a5b2734b9aa9b32a7de13a143584516c1">Products::weight</a></div><div class="ttdeci">double weight</div><div class="ttdef"><b>Definition:</b> <a href="main_8cpp_source.html#l00028">main.cpp:28</a></div></div>

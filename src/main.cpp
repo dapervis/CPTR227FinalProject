@@ -80,7 +80,7 @@ public:
     }
 
     /**
-     * This reports the node's ratio
+     * This reports the node's ratio, currently breaks something by converting it to an int, don't use for comparisons.
      */
     int nodeRatio() {
         return(data.ratio);
@@ -102,7 +102,7 @@ char BTNode::name = 'A'; // initialize static variable, unkown
  * @param n is the node to add
  * @returns pointer to rootNode if successful, NULL otherwise
  */
-BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
+BTNode* addNode(BTNode* rootNode, BTNode* n) {
     BTNode* prev = NULL;
     BTNode* w = rootNode;
     if(rootNode == NULL) { // starting an empty tree
@@ -111,9 +111,11 @@ BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
         // Find the node n belongs under, prev, n's new parent
         while(w != NULL) {
             prev = w;
-            if(n->nodeRatio() < w->nodeRatio()){
+            if(n->nodeData().ratio < w->nodeData().ratio){
+                //cout << w->nodeData().ratio << " added" << endl;
                 w = w->left;
-            } else if(n->nodeRatio() > w->nodeRatio()) {
+            } else if(n->nodeData().ratio > w->nodeData().ratio) {
+                //cout << w->nodeData().ratio << " added" << endl;
                 w = w->right;
             } else { // data already in the tree
                 return(NULL);
@@ -121,7 +123,7 @@ BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
         }
         // now prev should contain the node that should be n's parent
         // Add n to prev
-        if(n->nodeRatio() < prev->nodeRatio()) {
+        if(n->nodeData().ratio < prev->nodeData().ratio) {
             prev->left = n;
         } else {
             prev->right = n;
@@ -139,10 +141,10 @@ BTNode* addNodeTree(BTNode* rootNode, BTNode* n) {
  */
 BTNode* addNode(BTNode* rootNode, Products dataval) {
     BTNode* newNode = new BTNode(dataval);
-    if(addNodeTree(rootNode, newNode) == NULL) {
-        //cout << dataval << " already in tree" << endl;
+    if(addNode(rootNode, newNode) == NULL) {
+        //cout << dataval.ratio << " already in tree" << endl;
     } else {
-        //cout << dataval << " succesfully added" << endl;
+        //cout << dataval.ratio << " succesfully added" << endl;
     }
     return(rootNode);
 }
@@ -156,7 +158,8 @@ BTNode* addNode(BTNode* rootNode, Products dataval) {
  */
 int randomGen(int min, int max) {
 
-    double random = rand() % max + min;
+   double random = rand() % max + min;
+    //int random = rand() % max + min;
     //cout << rand() % max << endl;
     return random;
 }
@@ -253,22 +256,59 @@ void printBT(BTNode* node)
 void createTreeBruteForce(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
     int weight = 0;
-    int n = 0;
+    int price = 0;
     for (Products x : tree){
-            n++;
             int newweight = x.weight + weight;
-            if(newweight>=500 or n == index){
+            int newprice = x.price + price;
+            if(newweight>=500){
                 continue;
             }
             else{
                 weight = newweight;
+                price = newprice;
                 addNode(root, x);
                 x.weight + weight;
+                x.price + price;
             }
         
             
         };    
-    cout << "Weight of Knapsack: " << weight << endl;
+    cout << "Tree generated using a brute force algorithm after sorting the object's ratios" << endl;
+    cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
+    cout << "Price of the Knapsack: " << price << "$" << endl;
+    printBT(root);
+};
+
+/**
+ * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues until the end of the vector.
+ * 
+ * @param tree a vector of products you want to turn into a tree.
+ * @param index the size of the vector, needed with the current implementation.
+ */
+void RandomTree(vector<Products>& tree, int index) {
+    BTNode* root = new BTNode(tree[index]);
+    int weight = 0;
+    int price = 0;
+    int n = 0;
+    while(n < 10){
+        n++;
+        Products x = tree[randomGen(0,index)];
+        int newweight = x.weight + weight;
+        int newprice = x.price + price;
+        if(newweight>=500){
+                    continue;
+                }
+                else{
+                    weight = newweight;
+                    price = newprice;
+                    addNode(root, x);
+                    x.weight + weight;
+                    x.price + price;
+                } 
+    }  
+    cout << "Tree generated using a random algorithm" << endl;
+    cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
+    cout << "Price of the Knapsack: " << price << "$" << endl;
     printBT(root);
 };
 
@@ -280,17 +320,14 @@ void createTreeBruteForce(vector<Products>& tree, int index) {
  */
 void createTree(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
-    int weight = 0;
-    int n = 0;
     for (Products x : tree){
         addNode(root, x); 
-    };
-    cout << "Weight of Knapsack: " << weight << endl;
+    }
     printBT(root);
 }
 
 /**
- * compares 2 products, currently not used.
+ * compares 2 products
  * @param a product a
  * @param b product b
  * 
@@ -311,5 +348,11 @@ int main(int, char**) {
     for (int i = 1; i < products.size(); i++) {
         cout << i << " : " << products[i].ratio << endl;
     }
+
+    for (Products x : products){
+        cout << x.ratio << endl;
+    }
+
     createTreeBruteForce(products, index);
+    RandomTree(products, index);
 }
