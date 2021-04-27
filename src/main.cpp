@@ -276,6 +276,7 @@ void createTreeBruteForce(vector<Products>& tree, int index) {
     cout << "Tree generated using a brute force algorithm after sorting the object's ratios" << endl;
     cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
     cout << "Price of the Knapsack: " << price << "$" << endl;
+    cout << "Ratio of the Tree(weight/price): " << (double)weight/price << endl;
     printBT(root);
 };
 
@@ -308,7 +309,8 @@ void RandomTree(vector<Products>& tree, int index) {
     }  
     cout << "Tree generated using a random algorithm" << endl;
     cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
-    cout << "Price of the Knapsack: " << price << "$" << endl;
+    cout << "Price of the Knapsack: $" << price << endl;
+    cout << "Ratio of the Tree(weight/price): " << (double)weight/price << endl;
     printBT(root);
 };
 
@@ -349,9 +351,9 @@ int main(int, char**) {
         cout << i << " : " << products[i].ratio << endl;
     }
 
-    for (Products x : products){
-        cout << x.ratio << endl;
-    }
+    //for (Products x : products){
+    //    cout << x.ratio << endl;
+    //}
 
     createTreeBruteForce(products, index);
     RandomTree(products, index);
