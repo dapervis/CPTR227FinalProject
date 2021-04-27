@@ -276,7 +276,7 @@ void createTreeBruteForce(vector<Products>& tree, int index) {
     cout << "Tree generated using a brute force algorithm after sorting the object's ratios" << endl;
     cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
     cout << "Price of the Knapsack: " << price << "$" << endl;
-    cout << "Ratio of the Tree(weight/price): " << (double)weight/price << endl;
+    cout << "Ratio of the Tree(weight/price): " << (double)500/price << endl;
     printBT(root);
 };
 
@@ -288,6 +288,7 @@ void createTreeBruteForce(vector<Products>& tree, int index) {
  */
 void RandomTree(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
+    cout << tree[index].ratio << endl;
     int weight = 0;
     int price = 0;
     int n = 0;
@@ -310,7 +311,7 @@ void RandomTree(vector<Products>& tree, int index) {
     cout << "Tree generated using a random algorithm" << endl;
     cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
     cout << "Price of the Knapsack: $" << price << endl;
-    cout << "Ratio of the Tree(weight/price): " << (double)weight/price << endl;
+    cout << "Ratio of the Tree(weight/price): " << (double)500/price << endl;
     printBT(root);
 };
 
@@ -344,17 +345,18 @@ int main(int, char**) {
     auto max = std::max_element(products.begin(), products.end(), [](const Products& a, const Products& b){
         return a.ratio < b.ratio;
     });
-    int index = distance(max, products.end());
+    int index = distance(products.begin(), max);
     cout << max->ratio << endl;
-    sort(products.begin(), products.end(), &comparator);
-    for (int i = 1; i < products.size(); i++) {
+    cout << products[index].ratio << endl;
+    //sort(products.begin(), products.end(), &comparator); NO TOUCHY
+    for (int i = 0; i < products.size(); i++) {
         cout << i << " : " << products[i].ratio << endl;
     }
 
     //for (Products x : products){
     //    cout << x.ratio << endl;
     //}
-
-    createTreeBruteForce(products, index);
     RandomTree(products, index);
+    createTreeBruteForce(products, index);
+    
 }
