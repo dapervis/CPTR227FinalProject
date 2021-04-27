@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['add_0',['add',['../main_8cpp.html#aa99823a0fc8313c9c32541ce768fb801',1,'main.cpp']]]
+  ['addnode_0',['addNode',['../main_8cpp.html#ae9ece8422d18086bf552071fa2aff4ad',1,'main.cpp']]],
+  ['addnodetree_1',['addNodeTree',['../main_8cpp.html#aca5da078a902f3801f279574f43b661d',1,'main.cpp']]]
 ];

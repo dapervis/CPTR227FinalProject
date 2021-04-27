@@ -1,9 +1,9 @@
 /**
  * @file main.cpp
- * @brief This is a test of CMake, doxygen, and GitHub.
- * @details This is the long brief at the top of main.cpp.
- * @author Seth McNeill
- * @date 1/28/2021
+ * @brief This is the final project made with code from HW11.
+ * @details This program is based on the knapsack problem and uses a binary tree to store the data.
+ * @author Daniel Pervis and Lee Beckermeyer
+ * @date 4/21/2021
  * 
  */
 
@@ -15,6 +15,10 @@
 
 using namespace std;
 
+/**
+   * This is class has 2 different parameters used to make this object
+   
+   */
 class Products {
 
 private:
@@ -28,6 +32,12 @@ public:
 
     }
 
+    /**
+   * This is the constructor for this class
+   * @param p The price for the product.
+   * @param w The weight for the product.
+   *
+   */
     Products(double p, double w) {
         price = p;
         weight = w;
@@ -44,6 +54,7 @@ public:
   
   /**
    * BTNode constructor
+   * @param dataVal This is the product that is put into the binary tree.
    */
   BTNode(Products dataVal) {
       //cout << "name = " << name << endl;
@@ -68,14 +79,21 @@ public:
         return(data);
     }
 
+    /**
+     * This reports the node's ratio, currently breaks something by converting it to an int, don't use for comparisons.
+     */
+    int nodeRatio() {
+        return(data.ratio);
+    }
+
 private:
   char objName; // The object number created
-  static char name;
+  static char name; //unkown
   Products data; // Data that is stored in the node
 };
 
 
-char BTNode::name = 'A'; // initialize static variable
+char BTNode::name = 'A'; // initialize static variable, unkown
 
 /**
  * This function adds a node to a binary search tree.
@@ -94,8 +112,10 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
         while(w != NULL) {
             prev = w;
             if(n->nodeData().ratio < w->nodeData().ratio){
+                //cout << w->nodeData().ratio << " added" << endl;
                 w = w->left;
             } else if(n->nodeData().ratio > w->nodeData().ratio) {
+                //cout << w->nodeData().ratio << " added" << endl;
                 w = w->right;
             } else { // data already in the tree
                 return(NULL);
@@ -112,7 +132,6 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
     return(rootNode);
 }
 
-
 /**
  * Adds a new node with the passed data value
  * 
@@ -123,20 +142,33 @@ BTNode* addNode(BTNode* rootNode, BTNode* n) {
 BTNode* addNode(BTNode* rootNode, Products dataval) {
     BTNode* newNode = new BTNode(dataval);
     if(addNode(rootNode, newNode) == NULL) {
-        cout << dataval.ratio << " already in tree" << endl;
+        //cout << dataval.ratio << " already in tree" << endl;
     } else {
-        cout << dataval.ratio << " succesfully added" << endl;
+        //cout << dataval.ratio << " succesfully added" << endl;
     }
     return(rootNode);
 }
 
+
+/**
+ * Randomly generates a "double"(float in C++) number 
+ * 
+ * @param min The minimum number that can be generated.
+ * @param max The maximum number that can be generated.
+ */
 int randomGen(int min, int max) {
 
-    double random = rand() % max + min;
+   double random = rand() % max + min;
+    //int random = rand() % max + min;
     //cout << rand() % max << endl;
     return random;
 }
 
+/**
+ * generates the products.
+ * 
+ * @param n The amount of products you want generated.
+ */
 std::vector<Products> genProducts(int n) {
     vector<Products> output;
     for (int i = 0; i < n; i++) {
@@ -145,6 +177,11 @@ std::vector<Products> genProducts(int n) {
     return output;
 }
 
+/**
+ * prints a binary tree
+ * 
+ * @param rootNode The binary tree you want printed.
+ */
 void printTree(BTNode* rootNode) {
     queue<BTNode*> todo; // the queue of nodes left to visit
     BTNode* cur; // current node
@@ -187,7 +224,7 @@ void printBT(const string& prefix, BTNode* node, bool isLeft)
     {
         cout << prefix;
 
-        cout << (isLeft ? "|--" : "--" );
+        cout << (isLeft ? "L--" : "R--" );
 
         // print the value of the node
         //cout << node->nodeName() << ':' << node->nodeData() << std::endl;
@@ -210,17 +247,96 @@ void printBT(BTNode* node)
     printBT("", node, false);
 }
 
+/**
+ * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues until the end of the vector.
+ * 
+ * @param tree a vector of products you want to turn into a tree.
+ * @param index the size of the vector, needed with the current implementation.
+ */
+void createTreeBruteForce(vector<Products>& tree, int index) {
+    BTNode* root = new BTNode(tree[index]);
+    int weight = 0;
+    int price = 0;
+    for (Products x : tree){
+            int newweight = x.weight + weight;
+            int newprice = x.price + price;
+            if(newweight>=500){
+                continue;
+            }
+            else{
+                weight = newweight;
+                price = newprice;
+                addNode(root, x);
+                x.weight + weight;
+                x.price + price;
+            }
+        
+            
+        };    
+    cout << "Tree generated using a brute force algorithm after sorting the object's ratios" << endl;
+    cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
+    cout << "Price of the Knapsack: " << price << "$" << endl;
+    cout << "Ratio of the Tree(weight/price): " << (double)500/price << endl;
+    printBT(root);
+};
 
+/**
+ * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues until the end of the vector.
+ * 
+ * @param tree a vector of products you want to turn into a tree.
+ * @param index the size of the vector, needed with the current implementation.
+ */
+void RandomTree(vector<Products>& tree, int index) {
+    BTNode* root = new BTNode(tree[index]);
+    cout << tree[index].ratio << endl;
+    int weight = 0;
+    int price = 0;
+    int n = 0;
+    while(n < 10){
+        n++;
+        Products x = tree[randomGen(0,index)];
+        int newweight = x.weight + weight;
+        int newprice = x.price + price;
+        if(newweight>=500){
+                    continue;
+                }
+                else{
+                    weight = newweight;
+                    price = newprice;
+                    addNode(root, x);
+                    x.weight + weight;
+                    x.price + price;
+                } 
+    }  
+    cout << "Tree generated using a random algorithm" << endl;
+    cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
+    cout << "Price of the Knapsack: $" << price << endl;
+    cout << "Ratio of the Tree(weight/price): " << (double)500/price << endl;
+    printBT(root);
+};
+
+/**
+ * creates a binary tree
+ * 
+ * @param tree a vector of products you want to turn into a tree.
+ * @param index the size of the vector, needed with the current implementation.
+ */
 void createTree(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
-    for (int i = 0; i < tree.size(); i++) {
-        addNode(root, tree[i]);
+    for (Products x : tree){
+        addNode(root, x); 
     }
     printBT(root);
 }
 
+/**
+ * compares 2 products
+ * @param a product a
+ * @param b product b
+ * 
+ */
 bool comparator(const Products& a, const Products& b) {
-    return a.ratio < b.ratio;
+    return a.ratio > b.ratio;
 }
 
 int main(int, char**) {
@@ -231,9 +347,16 @@ int main(int, char**) {
     });
     int index = distance(products.begin(), max);
     cout << max->ratio << endl;
-    //sort(products.begin(), products.end(), &comparator);
+    cout << products[index].ratio << endl;
+    //sort(products.begin(), products.end(), &comparator); NO TOUCHY
     for (int i = 0; i < products.size(); i++) {
         cout << i << " : " << products[i].ratio << endl;
     }
-    createTree(products, index);
+
+    //for (Products x : products){
+    //    cout << x.ratio << endl;
+    //}
+    RandomTree(products, index);
+    createTreeBruteForce(products, index);
+    
 }
