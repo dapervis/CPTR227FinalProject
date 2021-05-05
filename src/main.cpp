@@ -248,6 +248,16 @@ void printBT(BTNode* node)
 }
 
 /**
+ * compares 2 products
+ * @param a product a
+ * @param b product b
+ * 
+ */
+bool comparator(const Products& a, const Products& b) {
+    return a.ratio > b.ratio;
+}
+
+/**
  * creates a binary tree, also checks if the knapsack is full, if the knapsack isn't full it continues until the end of the vector.
  * 
  * @param tree a vector of products you want to turn into a tree.
@@ -257,6 +267,10 @@ void createTreeBruteForce(vector<Products>& tree, int index) {
     BTNode* root = new BTNode(tree[index]);
     int weight = 0;
     int price = 0;
+    sort(tree.begin(), tree.end(), &comparator);
+    /*for (int i = 0; i < tree.size(); i++) {
+        cout << i << " : " << tree[i].ratio << endl;
+    }*/
     for (Products x : tree){
             int newweight = x.weight + weight;
             int newprice = x.price + price;
@@ -272,7 +286,7 @@ void createTreeBruteForce(vector<Products>& tree, int index) {
             }
         
             
-        };    
+        }
     cout << "Tree generated using a brute force algorithm after sorting the object's ratios" << endl;
     cout << "Weight of the Knapsack: " << weight << " lbs" << endl;
     cout << "Price of the Knapsack: " << price << "$" << endl;
@@ -329,15 +343,7 @@ void createTree(vector<Products>& tree, int index) {
     printBT(root);
 }
 
-/**
- * compares 2 products
- * @param a product a
- * @param b product b
- * 
- */
-bool comparator(const Products& a, const Products& b) {
-    return a.ratio > b.ratio;
-}
+
 
 int main(int, char**) {
     srand(time(NULL));

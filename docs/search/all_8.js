@@ -1,7 +1,8 @@
 var searchData=
 [
-  ['randomgen_17',['randomGen',['../main_8cpp.html#afc3a4c842afb20ad9abeb59d4a925c21',1,'main.cpp']]],
-  ['randomtree_18',['RandomTree',['../main_8cpp.html#a31fa96f1f6a3a3a1881d5535dbe8d5a2',1,'main.cpp']]],
-  ['ratio_19',['ratio',['../classProducts.html#a2fbbef37e3ed9df69f272a6a6c3f4058',1,'Products']]],
-  ['right_20',['right',['../classBTNode.html#af601e8fb1ad88e48379281bc47e5cb95',1,'BTNode']]]
+  ['parent_13',['parent',['../classBTNode.html#aaa5aaec4ddd0079333338a7c3b18ca5a',1,'BTNode']]],
+  ['price_14',['price',['../classProducts.html#ab1d2573a70f0164c5ea4e063fb2e3030',1,'Products']]],
+  ['printbt_15',['printBT',['../main_8cpp.html#af78b877c9954d526f49174eebb80ca62',1,'printBT(const string &amp;prefix, BTNode *node, bool isLeft):&#160;main.cpp'],['../main_8cpp.html#afbece08c59d5eb96fa61b14c52b20b31',1,'printBT(BTNode *node):&#160;main.cpp']]],
+  ['printtree_16',['printTree',['../main_8cpp.html#a347348993c7b98c617b52658ca971e86',1,'main.cpp']]],
+  ['products_17',['Products',['../classProducts.html',1,'Products'],['../classProducts.html#a525666743b7385d15444dd3f083eaa0c',1,'Products::Products()'],['../classProducts.html#a0e9692e4e591af3de0bb9e1afc8d4b93',1,'Products::Products(double p, double w)']]]
 ];

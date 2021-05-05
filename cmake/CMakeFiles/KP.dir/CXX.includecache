@@ -1,0 +1,20 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/daniel/Final/CPTR227FinalProject/src/main.cpp
+iostream
+-
+vector
+-
+chrono
+-
+algorithm
+-
+queue
+-
+
